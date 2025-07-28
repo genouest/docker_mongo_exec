@@ -19,8 +19,9 @@ run_scripts pre-launch
 
 # Default to launching mongo if no parameters passed
 if [ $# -eq 0 ]; then
-	su $MONGO_USER -c 'echo "bla"'
+	su $MONGO_USER -c 'docker-entrypoint.sh mongod'
 else
-	su $MONGO_USER -c 'echo "bla" > /tmp/es.log 2>&1 &'
+	su $MONGO_USER -c 'docker-entrypoint.sh mongod > /tmp/mongo.log 2>&1 &'
+        /usr/bin/sleep 3600
 	exec "$@"
 fi
