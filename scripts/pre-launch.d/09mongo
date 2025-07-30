@@ -1,1 +1,3 @@
-# Do some stuff related to mongo here
+# Add RUNUSER to mongodb group to be able to copy the data
+echo "Adding $RUN_USER to group mongodb"
+usermod -aG mongodb "$RUN_USER"

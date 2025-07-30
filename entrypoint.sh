@@ -24,6 +24,8 @@ if [ $# -eq 0 ]; then
 else
 	echo "User command: launching mongo first as $MONGO_USER"
 	su $MONGO_USER -c 'docker-entrypoint.sh mongod > /tmp/mongo.log 2>&1 &'
+        echo "Sleeping 20s to init db"
+        sleep 20
  	echo "Running user command now"
 	exec "$@"
 fi
