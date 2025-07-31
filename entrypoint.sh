@@ -26,8 +26,6 @@ else
 	su $MONGO_USER -c 'docker-entrypoint.sh mongod > /tmp/mongo.log 2>&1 &'
         echo "Sleeping 20s to init db"
         sleep 20
-        echo "Adding read permission to group mongodb"
-        chmod -R g+r /data/db/
  	echo "Running user command now"
 	exec "$@"
 fi

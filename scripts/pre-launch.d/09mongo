@@ -1,3 +1,6 @@
 # Add RUNUSER to mongodb group to be able to copy the data
 echo "Adding $RUN_USER to group mongodb"
 usermod -aG mongodb "$RUN_USER"
+mkdir -p /data/db
+chown mongodb:mongodb /data/db
+setfacl -d -m u::rwX,g::rwX,o::--- /data/db
