@@ -1,6 +1,16 @@
-# Add RUNUSER to mongodb group to be able to copy the data
-echo "Adding $RUN_USER to group mongodb"
-usermod -aG mongodb "$RUN_USER"
-mkdir -p /data/db
-chown mongodb:mongodb /data/db
-setfacl -d -m u::rwX,g::rwX,o::--- /data/db
+# Case where we want to run mongo, and are loading a db from somewhere. Copy data and fix permissions
+if [ -n "$DATA_DIR" ]; then
+    mkdir -p /data/db
+	cp -r "$DATA_DIR/" /data/db/
+	chown -R mongodb:mongodb /data/db
+    exit 0
+fi
+
+if [ -n "$RUN_USER" ]
+    # Add RUNUSER to mongodb group to be able to copy the data
+    echo "Adding $RUN_USER to group mongodb"
+    usermod -aG mongodb "$RUN_USER"
+    mkdir -p /data/db
+    chown mongodb:mongodb /data/db
+    setfacl -d -m u::rwX,g::rwX,o::--- /data/db
+fi
