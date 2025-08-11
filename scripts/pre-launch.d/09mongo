@@ -1,7 +1,7 @@
 # Case where we want to run mongo, and are loading a db from somewhere. Copy data and fix permissions
 if [ -n "$DATA_DIR" ]; then
-    rm -rf /data/db
-	cp -r "$DATA_DIR/" /data/db/
+    mkdir -p /data/db
+	cp -r "$DATA_DIR/*" /data/db/
 	chown -R mongodb:mongodb /data/db
     exit 0
 fi
