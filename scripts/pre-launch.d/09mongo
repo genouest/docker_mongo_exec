@@ -5,11 +5,13 @@ if [ -n "$DATA_DIR" ]; then
 	chown -R mongodb:mongodb /data/db
 fi
 
-if [ -n "$RUN_USER" ]
+if [ -n "$RUN_USER" ]; then
     # Add RUNUSER to mongodb group to be able to copy the data
     echo "Adding $RUN_USER to group mongodb"
     usermod -aG mongodb "$RUN_USER"
     mkdir -p /data/db
     chown mongodb:mongodb /data/db
+    echo "Setting facl on /data/db"
     setfacl -d -m u::rwX,g::rwX,o::--- /data/db
+	ls -lha /data/db
 fi
